@@ -1,6 +1,6 @@
 # Moringa-School-Bank
-## JAVASCRIPT Programming Test
-. December, 20, 2018.
+
+. January, 19, 2019.
 ### By **Jeanne d'Arc NYIRAMWIZA**
 ## Description
 This JAVASCRIPT Programming has been built to help people deposit, withdraw and check balance of their account online
