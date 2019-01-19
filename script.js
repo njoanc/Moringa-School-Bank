@@ -1,46 +1,53 @@
 //Business logic
-function BankAccount(name, initial, balance) {
+function BankAccount(name, initial) {
 	this.clientName = name;
 	this.initialDeposit = initial;
-	this.currentBalance = balance;
+	// this.currentBalance = balance;
 }
-Account.prototype.deposit = function(amount) {
-	if (this._isPositive(amount)) {
-		this.balance += amount;
-		alert(`Deposit: Frw{this.name} new balance is Frw{this.balance}`);
+BankAccount.prototype.deposit = function(amount) {
+	if (this.initialDeposit > 0) {
+		this.initialDeposit += amount;
+		alert(`Deposit: ${this.name} new balance is Frw${this.initialDeposit}`);
 		return true;
 	} else return false;
 };
 
-Account.prototype.withdraw = function(amount) {
-	if (this._isAllowed(amount)) {
-		this.balance -= amount;
-		alert(`Withdraw: Frw{this.clientName} new balance is Frw{this.currentBalance}`);
-		return true;
+BankAccount.prototype.withdraw = function(amount) {
+	// alert(amount);
+	if (this.initialDeposit > amount) {
+		this.initialDeposit -= amount;
+		alert(`Withdraw: ${this.clientName} new balance is Frw${this.initialDeposit}`);
+		return this.initialDeposit;
 	}
-	return false;
 };
 //User Interface logic
-
 $(document).ready(function() {
-	$('form#submit').submit(function(event) {
+	var userAccount;
+	$('form#new_account').submit(function(event) {
 		event.preventDefault();
-		name = Frw('#client_name').val();
-		initialDeposit = parseInt(Frw('#deposit').val());
-		newBalance = initialDeposit;
-		userAccount = new BankAccount(name, initial, balance);
+		var name = $('#client_name').val();
+		var initialDeposit = parseInt($('#deposit').val());
+		// newBalance = initialDeposit;
+		userAccount = new BankAccount(name, initialDeposit);
+		console.log(userAccount);
 	});
+	// var inputtedName = $(this).find('input.client|_name').val();
 
-	$('.new_account').text();
-	$('.balance').text('Frw{clientAccount.balance}');
+	// $('.new_account').text();
+	// $('.balance').text('Frw{clientAccount.balance}');
 
+	$('#withdraw1').submit(function(event) {
+		event.preventDefault();
+		var withdraw = parseInt($('#current_withdraw').val());
+		userAccount.withdraw(withdraw);
+
+		$('.balance').text(userAccount.initialDeposit);
+		$('#withdraw1').text('You withdraw');
+	});
 	$('#deposit2').submit(function(event) {
 		event.preventDefault();
-		withdraw = parseInt(Frw('#current-withdraw').val());
-		userAccount.makeWithdraw(Withdraw);
-
-		$('.balance').text('Frw{clientAccount.balance}');
-		$('#withdraw1').text('You withdraw');
+		var deposit = parseInt($('#current_deposit').val());
+		userAccount.deposit(deposit);
 	});
 	$('input#client_name').val(' ');
 	$('input#deposit').val(' ');
